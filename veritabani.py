@@ -92,19 +92,21 @@ class Veritabani:
     def kayitGuncelle(self, tc, ad, soyad, dogumtarihi, eposta, birim, nesbitimtarihi):
         try:
             self.baglantiAc()
-            # TC'ye göre güncelleme yapalım
+            # TC'yi string olarak kullanıyoruz
+            tc_str = str(tc)  # Eğer tc bir sayısal veri olarak geliyorsa string'e çevrilir
             query = """
             UPDATE kullanici_bilgileri
             SET ad = ?, soyad = ?, dogumtarihi = ?, eposta = ?, birim = ?, nesbitimtarihi = ?
             WHERE tc = ?
             """
-            self.cursor.execute(query, (ad, soyad, dogumtarihi, eposta, birim, nesbitimtarihi, tc))
+            self.cursor.execute(query, (ad, soyad, dogumtarihi, eposta, birim, nesbitimtarihi, tc_str))
             self.con.commit()
             self.baglantiKapat()
             return True
         except Exception as e:
             print(f"Güncelleme hatası: {e}")
             return False
+
 
     def kayitVarMi(self, tc):
         try:

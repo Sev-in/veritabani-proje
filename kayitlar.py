@@ -33,7 +33,7 @@ class KayitlarPage(QWidget):
 
 
 
-        from datetime import datetime  # Üstte olduğundan emin ol
+
 
         def tabloyuDoldur(self):
             self.veriler = vt.verileriYukle()

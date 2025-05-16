@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QDate
 from manuelKayitPython import Ui_Form_tekliKayit
 from veritabani import Veritabani
-from datetime import datetime  # Üstte import ettiğine emin ol reisim
+from datetime import datetime 
 
 vt = Veritabani()
 
@@ -33,7 +33,9 @@ class ManuelKayitPage(QWidget):
             dogumtarihi = datetime.strptime(dogumtarihi_raw, "%d-%m-%Y").strftime("%Y-%m-%d")
 
             eposta = self.manuelKayitForm.lineEdit_eposta.text()
-            birim = self.manuelKayitForm.lineEdit_birim.text()
+            birim_input = self.manuelKayitForm.lineEdit_birim.text().strip()
+            birim = f"BAİBÜ-{birim_input}" if not birim_input.startswith("BAİBÜ-") else birim_input
+
 
             nesbitimtarihi_raw = self.manuelKayitForm.dateEdit_nesBitimTarihi.date().toString("dd-MM-yyyy")
             nesbitimtarihi = datetime.strptime(nesbitimtarihi_raw, "%d-%m-%Y").strftime("%Y-%m-%d")

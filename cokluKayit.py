@@ -121,15 +121,23 @@ class CokluKayitPage(QWidget):
 
                         dogumtarihi = pd.to_datetime(row['dogumtarihi'], dayfirst=True).strftime('%Y-%m-%d')
 
+                        birim_degeri = str(row['birim']).strip()
+                        if not birim_degeri.startswith("BAİBÜ-"):
+                            birim = f"BAİBÜ-{birim_degeri}"
+                        else:
+                            birim = birim_degeri
+
+
                         vt.kayitEkle(
                             tc=tc_no,
                             ad=str(row['ad']).upper(),
                             soyad=str(row['soyad']).upper(),
                             dogumtarihi=dogumtarihi,
                             eposta=str(row['eposta']),
-                            birim=str(row['birim']),
+                            birim=birim,
                             nesbitimtarihi=nesbitimtarihi
                         )
+
                         basarili_kayitlar += 1
                     except Exception as e:
                         print(f"Kayıt ekleme hatası (Satır {index+2}):", e)
